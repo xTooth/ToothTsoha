@@ -8,6 +8,8 @@ Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoi
 
 * käyttäjä voi luoda tilin foorumiin, joka luo hänelle oman profiilisivun
 
+* käyttäjä voi kirjautua ja kirjautua ulos tililtään
+
 * käyttäjä voi seurata muita käyttäjiä, ja lopettaa seuraamisen
 
 * käyttäjä voi tehdä yleisiä postauksia, ja poistaa itse tekemiään kirjoituksia
