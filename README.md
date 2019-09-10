@@ -12,11 +12,11 @@ Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoi
 
 * käyttäjä voi seurata muita käyttäjiä, ja lopettaa seuraamisen
 
-* käyttäjä voi tehdä yleisiä postauksia, ja poistaa itse tekemiään kirjoituksia
+* käyttäjä voi tehdä yleisiä postauksia, ja poistaa sekä muokata itse tekemiään kirjoituksia
 
 * käyttäjä voi lukea muiden tekemiä postauksia
 
-* käyttäjä voi kommentoida postauksia , ja poistaa omia kommenttejaan
+* käyttäjä voi kommentoida postauksia , ja poistaa tai muokata omia kommenttejaan
 
 * käyttäjä voi lukea muiden tekemiä kommentteja
 
