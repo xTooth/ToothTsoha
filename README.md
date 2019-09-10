@@ -24,3 +24,9 @@ Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoi
 ## Toteutus
 
 Projekti toteutetaan web sovelluksena, palvelin puoli Pythonia, ja selainpuoli HTML + CSS/Bootstrap
+
+
+
+## Alustava Tietokantakaavio
+
+![alt text](Documentation/images/tsoha.PNG)
