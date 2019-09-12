@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
-    Hello world!
+<div class="jumbotron">
+  <h1 class="display-3">Foorumi</h1>
+  <p class="lead">Thoha projekti</p>
+  <hr class="my-2">
+  <p>Eli "twittermäinen" foorumiprojekti joka on vielä pahasti kesken.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('posts_index') }}" role="button">Aloita lukeminen tästä!</a>
   </p>
+</div>
 {% endblock %}
