@@ -8,7 +8,7 @@ Tietokantasovellus, harjoitustyö syksy 2019
 
 Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoiminnallisuudet:
 
-[Käyttötapaukset](Documentation/UserStories.md)
+[Käyttötapaukset](documentation/UserStories.md)
 
 ## Toteutus
 
@@ -18,4 +18,4 @@ Projekti toteutetaan web sovelluksena, palvelin puoli Pythonia, ja selainpuoli H
 
 ## Alustava Tietokantakaavio
 
-![alt text](Documentation/images/tsoha.PNG)
+![alt text](documentation/images/tsoha.PNG)
