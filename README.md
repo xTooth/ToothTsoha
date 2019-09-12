@@ -1,6 +1,8 @@
 # ToothTsoha
 Tietokantasovellus, harjoitustyö syksy 2019
 
+### [Sovellus Herokussa](https://tsohafoorumi.herokuapp.com/)
+
 
 ## Foorumi
 
