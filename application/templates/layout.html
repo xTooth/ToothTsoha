@@ -2,10 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TodoApp</title>
+    <title>My App</title>
   </head>
 
   <body>
+      <ul>
+          <li><a href="{{ url_for('posts_index') }}">List posts</a></li>
+          <li><a href="{{ url_for('post_form') }}">Add a post</a></li>
+              </ul>
     {% block body %}
       <p>
         Content.

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Post</th>
+        <th>Read</th>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <td>{{ post.name }}</td>
+        <td>{{ post.done }}</td>
+        <td>
+            <form method="POST" action="{{ url_for('post_set_done', post_id=post.id) }}">
+                <input type="submit" value="Mark as read" />
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
