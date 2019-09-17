@@ -3,18 +3,12 @@
 {% block body %}
 <table>
     <tr>
-        <th>Post</th>
-        <th>Read</th>
+        <th>Post</th>       
     </tr>
     {% for post in posts %}
     <tr>
-        <td>{{ post.name }}</td>
-        <td>{{ post.done }}</td>
-        <td>
-            <form method="POST" action="{{ url_for('post_set_done', post_id=post.id) }}">
-                <input type="submit" value="Mark as read" />
-            </form>
-        </td>
+        <td>{{ post.content }}</td>
+        
     </tr>
     {% endfor %}
 </table>

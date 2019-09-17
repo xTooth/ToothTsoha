@@ -1,6 +1,7 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.posts.models import Post
+from application.posts.forms import PostForm
 
 @app.route("/posts", methods=["GET"])
 def posts_index():
@@ -9,23 +10,18 @@ def posts_index():
 
 @app.route("/posts/new/")
 def post_form():
-    return render_template("posts/new.html")
-
-@app.route("/posts/<post_id>/", methods=["POST"])
-def post_set_done(post_id):
-
-    t = Post.query.get(post_id)
-    t.done = True
-    db.session().commit()
-  
-    return redirect(url_for("posts_index"))
-
+    return render_template("posts/new.html", form = PostForm())
 
 @app.route("/posts/", methods=["POST"])
 def post_create():
-    t = Post(request.form.get("name"))
+    form = PostForm(request.form)
 
-    db.session().add(t)
+    if not form.validate():
+        return render_template("posts/new.html" , form = form)
+    
+    p = Post(form.content.data)
+
+    db.session().add(p)
     db.session().commit()
   
     return redirect(url_for("posts_index"))

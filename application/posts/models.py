@@ -6,9 +6,9 @@ class Post(db.Model):
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())
 
-    name = db.Column(db.String(144), nullable=False)
-    done = db.Column(db.Boolean, nullable=False)
+    content = db.Column(db.String(144), nullable=False)
+    
 
-    def __init__(self, name):
-        self.name = name
-        self.done = False
+    def __init__(self, contnet):
+        self.content = contnet
+        
