@@ -3,28 +3,43 @@
 
 <head>
   <meta charset="utf-8">
-  <title>My App</title>
+  <title>Foorumi</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
 
-  <header class="masthead mb-auto">
-    <div class="inner">
-      <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link {{'active' if request.path == '/'}}" href="/"> <i data-feather="home"></i> Home</a>
-        <a class="nav-link {{'active' if request.path == '/posts'}}" href="{{ url_for('posts_index') }}"> <i data-feather="list"></i> List posts</a>
-        <a class="nav-link {{'active' if request.path == '/posts/new/'}}" href="{{ url_for('post_form') }}"> <i data-feather="file-plus"></i> Add a post</a>
-        <a class="nav-link {{'active' if request.path == '/signup'}}" href="{{ url_for('auth_create') }}"> <i data-feather="smile"></i> Create an account</a>
+  <header>
+    <nav class="navbar-expand-lg navbar-dark bg-dark" style="padding:0.5rem">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarNav">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-link nav-item {{'active' if request.path == '/'}}" href="/"> <i data-feather="home"></i> Home
+          </a>
+          <a class="nav-link nav-item {{'active' if request.path == '/posts'}}" href="{{ url_for('posts_index') }}"> <i
+              data-feather="list"></i> List posts </a>
+          {% if current_user.is_authenticated %}
+          <a class="nav-link nav-item {{'active' if request.path == '/posts/new/'}}" href="{{ url_for('post_form') }}">
+            <i data-feather="file-plus"></i> Add a post </a>
+          <a class="nav-link nav-item" href="{{ url_for('auth_logout') }}"><i data-feather="log-out"></i> Sign out </a>
+          {% else %}
+          <a class="nav-link nav-item {{'active' if request.path == '/signup'}}" href="{{ url_for('auth_create') }}"> <i
+              data-feather="user-plus"></i> Create an account </a>
+          <a class="nav-link nav-item {{'active' if request.path == '/auth/login'}}"
+            href="{{ url_for('auth_login') }}"><i data-feather="log-in"></i> Sign in </a>
+          {% endif %}
+        </div>
         {% if current_user.is_authenticated %}
-        <p class ="nav-link">
-          Signed in as user {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Sign out</a>
-        </p>
-        {% else %}
-        <a class="nav-link {{'active' if request.path == '/auth/login'}}" href="{{ url_for('auth_login') }}"><i data-feather="log-in"></i> Log in</a>
+        <span class="navbar-text">
+          Signed in as user {{ current_user.name }}.
+        </span>
         {% endif %}
-    </div>
+      </div>
+    </nav>
   </header>
 
   {% block body %}

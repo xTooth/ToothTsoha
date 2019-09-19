@@ -1,16 +1,45 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<table>
-    <tr>
-        <th>Post</th>       
-    </tr>
-    {% for post in posts %}
-    <tr>
-        <td>{{post.account.name}} : </td>
-        <td>{{ post.content }}</td>
-        
-    </tr>
-    {% endfor %}
-</table>
+<div class="container" style="margin-top: 5rem">
+    <ul style="list-style: none">
+        {% for post in posts %}
+        <li>
+            <div style="padding:0.5rem">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>{{post.account.name}}: </h5>
+                    </div>
+                    <div class="col-6">
+                        {{post.date_modified}}
+                    </div>
+                </div>
+                <p>{{ post.content }}</p>
+                <!-- mockup for like counter/like button-->
+                <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i></a>
+                <a class="badge badge-primary badge-pill" href="#"><i data-feather="message-square"></i></a>
+                <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
+                <ul style="list-style: none">
+                    <li>
+                        <div class="container">
+                            <br/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h6>Some Commenter </h6>
+                                </div>
+                                <div class="col-6">
+                                    <p>some date</p>
+                                </div>
+                            </div>
+                            <p>Some Comment.</p>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
