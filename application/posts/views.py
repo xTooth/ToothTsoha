@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.posts.models import Post
@@ -24,6 +24,7 @@ def post_create():
         return render_template("posts/new.html" , form = form)
     
     p = Post(form.content.data)
+    p.account_id = current_user.id
 
     db.session().add(p)
     db.session().commit()
