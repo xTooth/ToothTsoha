@@ -9,12 +9,21 @@
 </head>
 
 <body>
+
   <header class="masthead mb-auto">
     <div class="inner">
       <nav class="nav nav-masthead justify-content-center">
         <a class="nav-link" href="/"> <i data-feather="home"></i> Home</a>
         <a class="nav-link" href="{{ url_for('posts_index') }}"> <i data-feather="list"></i> List posts</a>
         <a class="nav-link" href="{{ url_for('post_form') }}"> <i data-feather="file-plus"></i> Add a post</a>
+        <a class="nav-link" href="{{ url_for('auth_create') }}"> <i data-feather="smile"></i> Create an account</a>
+        {% if current_user.is_authenticated %}
+        <p class ="nav-link">
+          Signed in as user {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Sign out</a>
+        </p>
+        {% else %}
+        <a class="nav-link" href="{{ url_for('auth_login') }}"><i data-feather="log-in"></i> Log in</a>
+        {% endif %}
     </div>
   </header>
 

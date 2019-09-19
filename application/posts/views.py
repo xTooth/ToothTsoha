@@ -1,5 +1,7 @@
-from application import app, db
 from flask import redirect, render_template, request, url_for
+from flask_login import login_required
+
+from application import app, db
 from application.posts.models import Post
 from application.posts.forms import PostForm
 
@@ -9,10 +11,12 @@ def posts_index():
 
 
 @app.route("/posts/new/")
+@login_required
 def post_form():
     return render_template("posts/new.html", form = PostForm())
 
 @app.route("/posts/", methods=["POST"])
+@login_required
 def post_create():
     form = PostForm(request.form)
 
