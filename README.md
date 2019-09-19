@@ -2,7 +2,9 @@
 Tietokantasovellus, harjoitustyö syksy 2019
 
 ### [Sovellus Herokussa](https://tsohafoorumi.herokuapp.com/)
+Sovellukseen käyttäjä: username: asd password: asd
 
+Tässä pikku huomio, toteutin materiaalissa esiintyviä asioita, joten kirjautuminen ja käyttäjän luominen on nyt toteutettu (ilman bcryptiä sillä se heitti jotain outoa erroria johon en löytänyt fixiä) kantataulut käyttäjän ja postin välillä myös toteutettu, ja ulkonäköä hieman kohennettu. 
 
 ## Foorumi
 
