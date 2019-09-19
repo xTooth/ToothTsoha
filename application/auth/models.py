@@ -1,4 +1,4 @@
-from flask_bcrypt import bcrypt
+from flask_bcrypt import Bcrypt
 from application import db
 
 class User(db.Model):

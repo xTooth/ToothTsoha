@@ -15,6 +15,40 @@
                     </div>
                 </div>
                 <p>{{ post.content }}</p>
+                {% if current_user.name == post.account.name %}
+                <form method="POST" action="{{ url_for('post_edit', post_id=post.id) }}">
+                    <table>
+                        <tr>
+                            <td>
+                                {{ form.content.label }}
+                            </td>
+                            <td>
+                                {{ form.content }}
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for error in form.content.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td colspan="2">
+                                <input class="btn btn-primary" type="submit" value="Edit Post" />
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ url_for('post_delete', post_id=post.id) }}">
+                                    <input class="btn btn-danger" type="submit" value="Delete!" />
+                                </form>
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+                {% endif %}
+
                 <!-- mockup for like counter/like button-->
                 <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i></a>
                 <a class="badge badge-primary badge-pill" href="#"><i data-feather="message-square"></i></a>
@@ -22,7 +56,7 @@
                 <ul style="list-style: none">
                     <li>
                         <div class="container">
-                            <br/>
+                            <br />
                             <div class="row">
                                 <div class="col-6">
                                     <h6>Some Commenter </h6>

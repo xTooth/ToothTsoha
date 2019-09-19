@@ -7,13 +7,30 @@ from application.posts.forms import PostForm
 
 @app.route("/posts", methods=["GET"])
 def posts_index():
-    return render_template("posts/list.html", posts = Post.query.all())
+    return render_template("posts/list.html", posts = Post.query.all(), form = PostForm())
 
 
 @app.route("/posts/new/")
 @login_required
 def post_form():
     return render_template("posts/new.html", form = PostForm())
+
+@app.route("/posts/<post_id>/", methods=["POST"])
+def post_edit(post_id):
+    form = PostForm(request.form)
+    p = Post.query.get(post_id)
+    p.content = form.content.data
+    db.session().commit()
+  
+    return redirect(url_for("posts_index"))
+
+@app.route("/posts/<post_id>/", methods=["POST"])
+def post_delete(post_id):   
+    p = Post.query.get(post_id)
+    db.session.delete(p)
+    db.session().commit()
+  
+    return redirect(url_for("posts_index"))
 
 @app.route("/posts/", methods=["POST"])
 @login_required
