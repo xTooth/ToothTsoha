@@ -2,6 +2,14 @@
 
 {% block body %}
 <div class="container" style="margin-top: 5rem">
+    {% if current_user.is_authenticated %}
+    <form method="POST" action="{{ url_for('post_create') }}">
+        <textarea id="content" name="content" class="form-control" placeholder="Tell us something new!" required
+            autofocus></textarea>
+        <button class="btn  btn-primary text-uppercase center" type="submit"> Post </button>
+    </form>
+    {% endif %}
+
     <ul style="list-style: none">
         {% for post in posts %}
         <li>
@@ -15,60 +23,17 @@
                     </div>
                 </div>
                 <p>{{ post.content }}</p>
-                {% if current_user.name == post.account.name %}
-                <form method="POST" action="{{ url_for('post_edit', post_id=post.id) }}">
-                    <table>
-                        <tr>
-                            <td>
-                                {{ form.content.label }}
-                            </td>
-                            <td>
-                                {{ form.content }}
-                            </td>
-                            <td>
-                                <ul>
-                                    {% for error in form.content.errors %}
-                                    <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
 
-                            <td colspan="2">
-                                <input class="btn btn-primary" type="submit" value="Edit Post" />
-                            </td>
-                            <td>
-                                <form method="POST" action="{{ url_for('post_delete', post_id=post.id) }}">
-                                    <input class="btn btn-danger" type="submit" value="Delete!" />
-                                </form>
-                            </td>
-                        </tr>
-
-                    </table>
-                </form>
-                {% endif %}
 
                 <!-- mockup for like counter/like button-->
-                <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i></a>
-                <a class="badge badge-primary badge-pill" href="#"><i data-feather="message-square"></i></a>
+                {% if current_user.name == post.account.name %}
+                <a class="badge badge-primary badge-pill" href="{{ url_for('post_specific', post_id=post.id)}}"><i
+                        data-feather="edit"></i></a>
+                {% endif %}
+                <a class="badge badge-primary badge-pill" href="{{ url_for('post_specific', post_id=post.id)}}"><i
+                        data-feather="message-square"></i>37</a>
+                <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i>15</a>
                 <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
-                <ul style="list-style: none">
-                    <li>
-                        <div class="container">
-                            <br />
-                            <div class="row">
-                                <div class="col-6">
-                                    <h6>Some Commenter </h6>
-                                </div>
-                                <div class="col-6">
-                                    <p>some date</p>
-                                </div>
-                            </div>
-                            <p>Some Comment.</p>
-                        </div>
-                    </li>
-                </ul>
 
             </div>
 
@@ -76,4 +41,5 @@
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}

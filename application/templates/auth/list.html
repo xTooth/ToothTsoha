@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container" style="margin-top: 2rem">
+    
+
+    <ul style="list-style: none">
+        {% for user in users %}
+        <li>
+            <div class="row">
+                <div class="col-9">
+                    <a href="#">{{user.name}}</a>
+                </div>
+                {% if current_user.is_authenticated %}
+                <div class="col-3">
+                    <a class="btn btn-primary" href="#">Follow</a>
+                </div>
+                {% endif %}
+            </div>
+            <br/>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

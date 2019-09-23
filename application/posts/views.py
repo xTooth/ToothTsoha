@@ -10,10 +10,9 @@ def posts_index():
     return render_template("posts/list.html", posts = Post.query.all(), form = PostForm())
 
 
-@app.route("/posts/new/")
-@login_required
-def post_form():
-    return render_template("posts/new.html", form = PostForm())
+@app.route("/posts/specific/<post_id>")
+def post_specific(post_id):
+    return render_template("posts/post.html", form = PostForm(), post = Post.query.get(post_id))
 
 @app.route("/posts/<post_id>/", methods=["POST"])
 def post_edit(post_id):

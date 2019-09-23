@@ -2,31 +2,37 @@
 
 {% block body %}
 <div class="container">
-    {{ error }}
 
-    <form method="POST" action="{{ url_for('auth_login') }}">
-        <table>
-            <tr>
-                <td>
-                    {{ form.username.label }}
-                </td>
-                <td>
-                    {{ form.username }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{ form.password.label }}
-                </td>
-                <td>
-                    {{ form.password }}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button type="submit" value="Login"><span><i data-feather="log-in"></i> </span>Sign in</button>
-                </td>
-            </tr>
-    </form>
+    <div class="row">
+        <div class="col-5 mx-auto justify-content-center align-self-center">
+            <br />
+            <div class="card card-signin" style="background-color: lightgray">
+
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign In</h5>
+                    <div style="color:red">{{ error }}</div>
+                    <form class="form-signin center" method="POST" action="{{ url_for('auth_login') }}">
+
+                        <div class="form-label-group">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                                required autofocus>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <input type="password" id="password" name="password" class="form-control"
+                                placeholder="Password" required>
+                        </div>
+                        <br />
+                        <button class="btn btn-block btn-primary text-uppercase center" type="submit"> Sign in</button>
+                        <br />
+                        <p class="text-center"> OR</p>
+                        <a class="btn btn-block btn-success text-uppercase center" href="{{ url_for('auth_create') }}">
+                            Create an account</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

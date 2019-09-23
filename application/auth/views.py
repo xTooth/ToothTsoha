@@ -31,6 +31,12 @@ def auth_logout():
     logout_user()
     return redirect(url_for("index"))
 
+@app.route("/users", methods=["GET"])
+def auth_users():
+    return render_template("auth/list.html", users = User.query.all())
+
+
+
 @app.route("/signup", methods = ["GET", "POST"])
 def auth_create():
     if request.method == "GET":
@@ -45,4 +51,4 @@ def auth_create():
     db.session().add(u)
     db.session().commit()
 
-    return redirect(url_for("index"))
+    return redirect(url_for("auth_login"))

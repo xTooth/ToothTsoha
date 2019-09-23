@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+  <br/>
+  <div style="padding:0.5rem">
+    <div class="row">
+      <div class="col-6">
+        <h5>{{post.account.name}}: </h5>
+      </div>
+      <div class="col-6">
+        {{post.date_modified}}
+      </div>
+    </div>
+    <p>{{ post.content }}</p>
+    {% if current_user.name == post.account.name %}
+    <form method="POST" action="{{ url_for('post_edit', post_id=post.id) }}">
+      <div>
+        <textarea id="content" name="content" class="form-control" required>{{post.content}}</textarea>
+        <button class="btn  btn-primary text-uppercase center" type="submit"> EDIT </button>
+      </div>
+    </form>
+    {% endif %}
+    <br />
+    <!-- mockup for like counter/like button-->
+    <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i></a>
+    <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
+    <br/>
+    <br/>
+    {% if current_user.is_authenticated %}
+    <form method="POST" action="#">
+      <div style="margin-left: 2rem">
+        <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?" required></textarea>
+        <button class="btn  btn-primary text-uppercase " type="submit"> Comment </button>
+      </div>
+    </form>
+    {% endif %}
+    <ul style="list-style: none">
+      <li>
+        <div class="container">
+          <br />
+          <div class="row">
+            <div class="col-6">
+              <h6>Some Commenter </h6>
+            </div>
+            <div class="col-6">
+              <p>some date</p>
+            </div>
+          </div>
+          <p>Some Comment.</p>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</div>
+{% endblock %}
