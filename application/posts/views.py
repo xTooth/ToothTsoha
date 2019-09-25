@@ -3,7 +3,9 @@ from flask_login import login_required, current_user
 
 from application import app, db
 from application.posts.models import Post
+from application.comments.models import Comment
 from application.posts.forms import PostForm
+from application.comments.forms import CommentForm
 
 @app.route("/posts", methods=["GET"])
 def posts_index():
@@ -12,7 +14,22 @@ def posts_index():
 
 @app.route("/posts/specific/<post_id>")
 def post_specific(post_id):
-    return render_template("posts/post.html", form = PostForm(), post = Post.query.get(post_id))
+    return render_template("posts/post.html", form = PostForm(), post = Post.query.get(post_id), commentform = CommentForm())
+
+@app.route("/posts/specific/<post_id>", methods=["POST"])
+@login_required
+def new_comment(post_id):
+    
+    form = CommentForm(request.form)
+    c = Comment(form.comment.data)
+    c.account_id = current_user.id
+    c.post_id = post_id
+    
+    db.session.add(c)
+    db.session.commit()
+
+    return redirect(url_for('post_specific', post_id=post_id))
+    
 
 @app.route("/posts/<post_id>/", methods=["POST"])
 def post_edit(post_id):
@@ -21,7 +38,7 @@ def post_edit(post_id):
     p.content = form.content.data
     db.session().commit()
   
-    return redirect(url_for("posts_index"))
+    return redirect(url_for('post_specific', post_id=post_id))
 
 @app.route("/posts/<post_id>/", methods=["POST"])
 def post_delete(post_id):   

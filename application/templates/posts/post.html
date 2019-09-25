@@ -28,28 +28,31 @@
     <br/>
     <br/>
     {% if current_user.is_authenticated %}
-    <form method="POST" action="#">
+    <form method="POST" action="{{ url_for('new_comment', post_id=post.id) }}">
       <div style="margin-left: 2rem">
         <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?" required></textarea>
         <button class="btn  btn-primary text-uppercase " type="submit"> Comment </button>
       </div>
     </form>
     {% endif %}
+
     <ul style="list-style: none">
+        {% for comment in post.comments %}
       <li>
         <div class="container">
           <br />
           <div class="row">
             <div class="col-6">
-              <h6>Some Commenter </h6>
+              <h6>{{comment.account.name}} </h6>
             </div>
             <div class="col-6">
-              <p>some date</p>
+              <p>{{comment.date_modified}}</p>
             </div>
           </div>
-          <p>Some Comment.</p>
+          <p>{{comment.content}}</p>
         </div>
       </li>
+       {% endfor %}
     </ul>
 
   </div>

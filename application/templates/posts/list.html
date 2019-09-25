@@ -31,7 +31,7 @@
                         data-feather="edit"></i></a>
                 {% endif %}
                 <a class="badge badge-primary badge-pill" href="{{ url_for('post_specific', post_id=post.id)}}"><i
-                        data-feather="message-square"></i>37</a>
+                        data-feather="message-square"></i>{{post.comments | length}}</a>
                 <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i>15</a>
                 <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
 
