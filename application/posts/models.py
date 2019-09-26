@@ -10,7 +10,7 @@ class Post(db.Model):
     
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
-    comments = db.relationship("Comment", backref='post', lazy=True)
+    comments = db.relationship("Comment", backref='post', cascade="all, delete, delete-orphan", lazy=True)
     
     def __init__(self, contnet):
         self.content = contnet

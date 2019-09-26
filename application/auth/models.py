@@ -14,8 +14,8 @@ class User(db.Model):
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
-    posts = db.relationship("Post", backref='account', lazy=True)
-    comments = db.relationship("Comment", backref='account', lazy=True)
+    posts = db.relationship("Post", backref='account', cascade="all, delete, delete-orphan", lazy=True)
+    comments = db.relationship("Comment", backref='account',cascade="all, delete, delete-orphan", lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name

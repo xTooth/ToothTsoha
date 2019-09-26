@@ -40,12 +40,11 @@ def post_edit(post_id):
   
     return redirect(url_for('post_specific', post_id=post_id))
 
-@app.route("/posts/<post_id>/", methods=["POST"])
-def post_delete(post_id):   
+@app.route("/posts/specific/<post_id>/delete", methods=["POST"])
+def post_delete(post_id):     
     p = Post.query.get(post_id)
-    db.session.delete(p)
-    db.session().commit()
-  
+    db.session().delete(p)
+    db.session().commit()  
     return redirect(url_for("posts_index"))
 
 @app.route("/posts/", methods=["POST"])
