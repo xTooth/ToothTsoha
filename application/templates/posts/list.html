@@ -15,11 +15,15 @@
         <li>
             <div style="padding:0.5rem">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-9">
                         <h5>{{post.account.name}}: </h5>
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
+                        {%if post.date_modified != post.date_created %}
+                        <p> (edited) {{post.date_modified}}</p>
+                        {% else %}
                         {{post.date_modified}}
+                        {% endif %}
                     </div>
                 </div>
                 <p>{{ post.content }}</p>

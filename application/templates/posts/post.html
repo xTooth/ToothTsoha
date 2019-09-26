@@ -9,7 +9,11 @@
         <h5>{{post.account.name}}: </h5>
       </div>
       <div class="col-3">
+        {%if post.date_modified != post.date_created %}
+        <p> (edited) {{post.date_modified}}</p>
+        {% else %}
         {{post.date_modified}}
+        {% endif %}
       </div>
     </div>
     <p>{{ post.content }}</p>
@@ -52,7 +56,11 @@
               <h6>{{comment.account.name}} </h6>
             </div>
             <div class="col-3">
-              <p>{{comment.date_modified}}</p>
+                {%if comment.date_modified != comment.date_created %}
+                <p> (edited) {{comment.date_modified}}</p>
+                {% else %}
+                <p>{{comment.date_modified}}</p>
+                {% endif %}
             </div>
           </div>
           <p>{{comment.content}}</p>
