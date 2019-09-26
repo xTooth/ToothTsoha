@@ -1,6 +1,8 @@
-from flask import render_template
-from application import app
+from flask import redirect, render_template, request, url_for
+
+from application import app, db
+from application.posts.models import Post
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+   return render_template("index.html", most_commented=Post.find_most_commented_posts())

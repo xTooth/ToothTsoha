@@ -1,13 +1,35 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="jumbotron">
-  <h1 class="display-3">Foorumi</h1>
-  <p class="lead">Thoha projekti</p>
-  <hr class="my-2">
-  <p>Eli "twittermäinen" foorumiprojekti joka on vielä pahasti kesken.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="{{ url_for('posts_index') }}" role="button">Aloita lukeminen tästä!</a>
-  </p>
+<div class="container">
+  <div class=" jumbotron row">
+    <div class=" col-6">
+      <h1 class="display-3">Foorumi</h1>
+      <p class="lead">Tsoha projekti</p>
+      <hr class="my-2">
+      <p>Eli "twittermäinen" foorumiprojekti joka on vielä pahasti kesken.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('posts_index') }}" role="button">Start browsing posts</a>
+      </p>
+    </div>
+    <div class=" col-6">
+      <h2 class="display-6"> Most discussed posts</h2>
+      <ul>
+        {% for post in most_commented %}
+        <li style="list-style: none">
+          <div class="row">
+            <div class="col-9">
+              <p>{{post.content}}</p>
+            </div>
+            <div class="col-3">
+              <a class="btn btn-primary" href="{{ url_for('post_specific', post_id=post.id)}}">Take a look</a>
+            </div>
+          </div>
+          <br />
+        </li>
+        {%endfor%}
+      </ul>
+    </div>
+  </div>
 </div>
 {% endblock %}

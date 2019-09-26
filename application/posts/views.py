@@ -8,7 +8,7 @@ from application.comments.forms import CommentForm
 
 @app.route("/posts", methods=["GET"])
 def posts_index():
-    return render_template("posts/list.html", posts = Post.query.all(), form = PostForm())
+    return render_template("posts/list.html", posts = Post.query.order_by(Post.date_created.desc()).all(), form = PostForm())
 
 
 @app.route("/posts/specific/<post_id>")
