@@ -2,13 +2,13 @@
 
 {% block body %}
 <div class="container">
-  <br/>
+  <br />
   <div style="padding:0.5rem">
     <div class="row">
-      <div class="col-6">
+      <div class="col-9">
         <h5>{{post.account.name}}: </h5>
       </div>
-      <div class="col-6">
+      <div class="col-3">
         {{post.date_modified}}
       </div>
     </div>
@@ -29,35 +29,48 @@
     <!-- mockup for like counter/like button-->
     <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i></a>
     <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <!--comment creation field-->
     {% if current_user.is_authenticated %}
     <form method="POST" action="{{ url_for('new_comment', post_id=post.id) }}">
       <div style="margin-left: 2rem">
-        <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?" required></textarea>
+        <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?"
+          required></textarea>
         <button class="btn  btn-primary text-uppercase " type="submit"> Comment </button>
       </div>
     </form>
     {% endif %}
     <!--comments-->
     <ul style="list-style: none">
-        {% for comment in post.comments %}
+      {% for comment in post.comments %}
       <li>
         <div class="container">
           <br />
           <div class="row">
-            <div class="col-6">
+            <div class="col-9">
               <h6>{{comment.account.name}} </h6>
             </div>
-            <div class="col-6">
+            <div class="col-3">
               <p>{{comment.date_modified}}</p>
             </div>
           </div>
           <p>{{comment.content}}</p>
         </div>
+        {% if current_user.name == comment.account.name %}
+        <form method="POST" action="{{ url_for('comment_edit', post_id = comment.post.id, comment_id=comment.id) }}">
+          <div>
+            <textarea id="comment" name="comment" class="form-control" required>{{comment.content}}</textarea>
+            <button class="btn  btn-primary text-uppercase center" type="submit"> EDIT </button>
+            <button form="delete{{comment.id}}" class="btn btn-danger text-uppercase" type="submit"> DELETE </button>
+          </div>
+        </form>
+        <form id="delete{{comment.id}}" method="POST" action="{{ url_for('comment_delete', post_id = comment.post.id, comment_id=comment.id) }}">
+          <!-- button moved to the form above to avoid styling issues-->
+        </form>
+        {% endif %}
       </li>
-       {% endfor %}
+      {% endfor %}
     </ul>
 
   </div>
