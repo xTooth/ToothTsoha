@@ -7,15 +7,18 @@ from application import app , db
 from application.auth.models import User
 from application.auth.forms import LoginForm , NewUserForm
 
+bcrypt = Bcrypt(app)
+
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
         return render_template("auth/loginform.html", form = LoginForm())
 
     form = LoginForm(request.form)
+    pw = form.password.data
+    user = User.query.filter_by(username=form.username.data).first()
     
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
-    if not user:
+    if not bcrypt.check_password_hash(user.password, pw):
         return render_template("auth/loginform.html", form = form,
                                error = "No such username or password")
 
@@ -44,8 +47,10 @@ def auth_create():
     form = NewUserForm(request.form)
     if not form.validate():
         return render_template("auth/signup.html" , form = form)
-
-    u = User(form.name.data, form.username.data , form.password.data)
+    
+    pw = form.password.data
+    pw_hash = bcrypt.generate_password_hash(pw).decode('utf-8')
+    u = User(form.name.data, form.username.data , pw_hash)
 
     db.session().add(u)
     db.session().commit()
