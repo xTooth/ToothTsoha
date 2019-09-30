@@ -1,15 +1,21 @@
 ## Käyttötapaukset
 
-* Käyttäjä voi luoda tilin foorumiin, joka luo hänelle oman profiilisivun
+- [ ] Käyttäjä voi selata käyttäjien profiileja kirjautumatta
 
-* Käyttäjä voi kirjautua ja kirjautua ulos tililtään
+- [x] Käyttäjä voi selata lukea posteja ja kommentteja kirjautumatta
 
-* Käyttäjä voi seurata muita käyttäjiä, ja lopettaa seuraamisen
+- [x] Käyttäjä voi luoda tilin foorumiin, joka luo hänelle oman profiilisivun
 
-* Käyttäjä voi tehdä yleisiä postauksia, ja poistaa sekä muokata itse tekemiään kirjoituksia
+- [x] Käyttäjä voi kirjautua ja kirjautua ulos tililtään
 
-* Käyttäjä voi lukea muiden tekemiä postauksia
+- [ ] Kirjautunut käyttäjä voi seurata muita käyttäjiä, ja lopettaa seuraamisen
 
-* Käyttäjä voi kommentoida postauksia , ja poistaa tai muokata omia kommenttejaan
+- [x] Kirjautunut käyttäjä voi tehdä yleisiä postauksia, ja poistaa sekä muokata itse tekemiään kirjoituksia
 
-* Käyttäjä voi lukea muiden tekemiä kommentteja
+- [x] Kirjautunut käyttäjä voi lukea muiden tekemiä postauksia 
+
+- [x] Kirjautunut käyttäjä voi kommentoida postauksia , ja poistaa tai muokata omia kommenttejaan
+
+- [x] Kirjautunut käyttäjä voi lukea muiden tekemiä kommentteja
+
+- [ ] Kirjautunut käyttäjä voi tykätä postauksista
