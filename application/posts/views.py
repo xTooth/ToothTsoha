@@ -6,10 +6,26 @@ from application.posts.models import Post
 from application.posts.forms import PostForm
 from application.comments.forms import CommentForm
 
-@app.route("/posts", methods=["GET"])
+@app.route("/posts", methods=["GET", "POST"])
 def posts_index():
-    return render_template("posts/list.html", posts = Post.query.order_by(Post.date_created.desc()).all(), form = PostForm())
+    if request.method == "GET":    
+        return render_template("posts/list.html", posts = Post.query.order_by(Post.date_created.desc()).all(), form = PostForm())
+        
+    
+    if not current_user.is_authenticated:
+        return redirect("/auth/login")
 
+    form = PostForm(request.form)    
+    if not form.validate():
+        return render_template("posts/list.html", form = form,  posts = Post.query.order_by(Post.date_created.desc()).all())
+    
+    p = Post(form.content.data)
+    p.account_id = current_user.id
+
+    db.session().add(p)
+    db.session().commit()
+  
+    return redirect(url_for("posts_index"))
 
 @app.route("/posts/specific/<post_id>")
 def post_specific(post_id):
@@ -19,6 +35,9 @@ def post_specific(post_id):
 @app.route("/posts/<post_id>/", methods=["POST"])
 def post_edit(post_id):
     form = PostForm(request.form)
+
+    if not form.validate():
+        return render_template("/posts/post.html", form = form, post = Post.query.get(post_id), commentform = CommentForm())
     p = Post.query.get(post_id)
     p.content = form.content.data
     db.session().commit()
@@ -30,20 +49,4 @@ def post_delete(post_id):
     p = Post.query.get(post_id)
     db.session().delete(p)
     db.session().commit()  
-    return redirect(url_for("posts_index"))
-
-@app.route("/posts/", methods=["POST"])
-@login_required
-def post_create():
-    form = PostForm(request.form)
-
-    if not form.validate():
-        return render_template("posts/new.html" , form = form)
-    
-    p = Post(form.content.data)
-    p.account_id = current_user.id
-
-    db.session().add(p)
-    db.session().commit()
-  
     return redirect(url_for("posts_index"))

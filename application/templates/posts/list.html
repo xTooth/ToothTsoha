@@ -2,10 +2,25 @@
 
 {% block body %}
 <div class="container" style="margin-top: 5rem">
+
+    <div style="color:red">{{ error }}</div>
     {% if current_user.is_authenticated %}
-    <form method="POST" action="{{ url_for('post_create') }}">
+
+    <form method="POST" action="{{ url_for('posts_index') }}">
+        {% if form.content.errors %}
+        <ul class="errors" style="color: red; list-style: none;">
+            {% for error in form.content.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if form.content.data %}
+        <textarea id="content" name="content" class="form-control" placeholder="Tell us something new!" required
+            autofocus>{{form.content.data}}</textarea>
+        {% else %}
         <textarea id="content" name="content" class="form-control" placeholder="Tell us something new!" required
             autofocus></textarea>
+        {% endif %}
         <button class="btn  btn-primary text-uppercase center" type="submit"> Post </button>
     </form>
     {% endif %}

@@ -11,13 +11,22 @@
                     <h5 class="card-title text-center">Create account</h5>
                     <form class="form-signin center" method="POST" action="{{ url_for('auth_create') }}">
                         <div class="form-label-group">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Name" required
+                            {% if form.name.data %}
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{form.name.data}}" required>    
+                            {% else %}
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Name" required
                                 autofocus>
+                            {% endif %}                   
                         </div>
                         <br />
                         <div class="form-label-group">
+                            {% if form.username.data %}
+                            <input type="text" id="username" name="username" class="form-control" value="{{form.username.data}}" placeholder="Username"
+                                required>
+                            {% else %}
                             <input type="text" id="username" name="username" class="form-control" placeholder="Username"
                                 required>
+                            {% endif %}
                         </div>
                         <br />
                         <div class="form-label-group">

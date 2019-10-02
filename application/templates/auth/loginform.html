@@ -12,18 +12,31 @@
                     <h5 class="card-title text-center">Sign In</h5>
                     <div style="color:red">{{ error }}</div>
                     <form class="form-signin center" method="POST" action="{{ url_for('auth_login') }}">
-
+                        {% if form.username.data%}
+                        <div class="form-label-group">
+                            <input type="text" id="username" name="username" value="{{form.username.data}}"
+                                class="form-control" placeholder="Username" required>
+                        </div>
+                        <br />
+                        <div class="form-label-group">
+                            <input type="password" id="password" name="password" class="form-control"
+                                placeholder="Password" required autofocus>
+                        </div>
+                        {% else %}
                         <div class="form-label-group">
                             <input type="text" id="username" name="username" class="form-control" placeholder="Username"
                                 required autofocus>
+
                         </div>
                         <br />
                         <div class="form-label-group">
                             <input type="password" id="password" name="password" class="form-control"
                                 placeholder="Password" required>
                         </div>
+                        {% endif %}
                         <br />
-                        <button class="btn btn-block btn-primary text-uppercase center" type="submit"> Sign in</button>
+                        <button class="btn btn-block btn-primary text-uppercase center" type="submit"> Sign
+                            in</button>
                         <br />
                         <p class="text-center"> OR</p>
                         <a class="btn btn-block btn-success text-uppercase center" href="{{ url_for('auth_create') }}">

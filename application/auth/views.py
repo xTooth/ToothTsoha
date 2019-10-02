@@ -18,6 +18,10 @@ def auth_login():
     pw = form.password.data
     user = User.query.filter_by(username=form.username.data).first()
     
+    if not user:
+         return render_template("auth/loginform.html", form = form,
+                               error = "No such username or password")
+
     if not bcrypt.check_password_hash(user.password, pw):
         return render_template("auth/loginform.html", form = form,
                                error = "No such username or password")
