@@ -20,6 +20,10 @@
         <div class="navbar-nav mr-auto">
           <a class="nav-link nav-item {{'active' if active_page == 'index'}}" href="/"> <i data-feather="home"></i> Home
           </a>
+          {% if current_user.is_authenticated %}
+          <a class="nav-link nav-item {{'active' if active_page == 'curated'}}" href="{{ url_for('posts_curated')}}"> <i data-feather="inbox"></i> Followed
+          </a>
+          {% endif %}
           <a class="nav-link nav-item {{'active' if active_page == 'listp'}}" href="{{ url_for('posts_index') }}"> <i
               data-feather="list"></i> Posts </a>
           <a class="nav-link nav-item {{'active' if active_page == 'lista'}}" href="{{ url_for('auth_users') }}">

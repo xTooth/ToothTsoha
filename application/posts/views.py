@@ -50,3 +50,8 @@ def post_delete(post_id):
     db.session().delete(p)
     db.session().commit()  
     return redirect(url_for("posts_index"))
+
+@app.route('/curated', methods=["GET"])
+@login_required
+def posts_curated():
+    return render_template('posts/curatedPosts.html')
