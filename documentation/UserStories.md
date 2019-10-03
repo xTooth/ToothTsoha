@@ -1,6 +1,6 @@
 ## Käyttötapaukset
 
-- [ ] Käyttäjä voi selata käyttäjien profiileja kirjautumatta
+- [x] Käyttäjä voi selata käyttäjien profiileja kirjautumatta
 
 - [x] Käyttäjä voi selata lukea posteja ja kommentteja kirjautumatta
 
