@@ -6,7 +6,7 @@
   <div style="padding:0.5rem">
     <div class="row">
       <div class="col-9">
-        <h5>{{post.account.name}}: </h5>
+          <a href="{{ url_for('user_page',user_id = post.account.id)}}"> <h5>{{post.account.name}}: </h5> </a>
       </div>
       <div class="col-3">
         {%if post.date_modified != post.date_created %}
@@ -72,7 +72,7 @@
           <br />
           <div class="row">
             <div class="col-9">
-              <h6>{{comment.account.name}} </h6>
+              <a href="{{ url_for('user_page',user_id = comment.account.id)}}"><h6>{{comment.account.name}}</h6></a>
             </div>
             <div class="col-3">
               {%if comment.date_modified != comment.date_created %}
