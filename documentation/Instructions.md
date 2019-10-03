@@ -23,7 +23,9 @@ python app.py
 ```
 
 Sovelluksen etusivu on tämän jälkeen tarjolla osoitteessa: localhost:5000
-Sovelluksen saa sammumaan painamalla <kbd>CTRL</kbd>+<kbd>C</kbd>.
+Sovelluksen saa sammumaan painamalla:
+
+<kbd>CTRL</kbd>+<kbd>C</kbd>
 
 
 ### Käyttöohje
