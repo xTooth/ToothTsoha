@@ -60,3 +60,7 @@ def auth_create():
     db.session().commit()
 
     return redirect(url_for("auth_login"))
+
+@app.route("/user/<user_id>",methods=["GET"])
+def user_page(user_id):
+    return render_template("auth/user.html", user = User.query.get(user_id))

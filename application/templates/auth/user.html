@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% set active_page = "user" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-3" id="left">
+            <br />
+            <h2> {{ user.name }}</h2>
+            <br />
+            {% if current_user.is_authenticated and user.name != current_user.name %}
+            <div class="col-3">
+                <a class="btn btn-primary" href="#">Follow</a>
+            </div>
+            {% endif %}
+            <br />
+            <h5> Activity </h5>
+            <p>Posts: {{user.posts | length}}</p>
+            <p>Comments: {{user.comments | length}}</p>
+        </div>
+        <div class="col-9" id="right">
+            <br />
+            <ul style="list-style: none">
+                {% for post in user.posts %}
+                <li>
+                    <div style="padding:0.5rem">
+                        <div class="row">
+                            <div class="col-9">
+                                <h5>{{post.account.name}}: </h5>
+                            </div>
+                            <div class="col-3">
+                                {%if post.date_modified != post.date_created %}
+                                <p> (edited) {{post.date_modified}}</p>
+                                {% else %}
+                                {{post.date_modified}}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <p>{{ post.content }}</p>
+                        {% if current_user.name == post.account.name %}
+                        <a class="badge badge-primary badge-pill"
+                            href="{{ url_for('post_specific', post_id=post.id)}}"><i data-feather="edit"></i></a>
+                        {% endif %}
+                        <a class="badge badge-primary badge-pill"
+                            href="{{ url_for('post_specific', post_id=post.id)}}"><i
+                                data-feather="message-square"></i>{{post.comments | length}}</a>
+                        <!-- mockup for like counter/like button-->
+                        <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i>15</a>
+                        <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
+
+                    </div>
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
