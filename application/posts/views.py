@@ -44,11 +44,16 @@ def post_edit(post_id):
   
     return redirect(url_for('post_specific', post_id=post_id))
 
-@app.route("/posts/specific/<post_id>/delete", methods=["POST"])
-def post_delete(post_id):     
+@app.route("/posts/specific/<post_id>/<site>/delete", methods=["POST"])
+def post_delete(post_id, site):     
     p = Post.query.get(post_id)
+    u = p.account_id
+    
+
     db.session().delete(p)
-    db.session().commit()  
+    db.session().commit()
+    if site == "user":
+        return redirect(url_for("user_page",user_id=u))  
     return redirect(url_for("posts_index"))
 
 @app.route('/curated', methods=["GET"])

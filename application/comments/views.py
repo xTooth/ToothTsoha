@@ -36,7 +36,7 @@ def comment_edit(post_id, comment_id):
   
     return redirect(url_for('post_specific', post_id=post_id))
 
-@app.route("/posts/specific/<post_id>/<comment_id>/delete", methods=["POST"])
+@app.route("/posts/specific/<post_id>/<comment_id>/deleteComment", methods=["POST"])
 def comment_delete(post_id, comment_id):     
     c = Comment.query.get(comment_id)
     db.session().delete(c)

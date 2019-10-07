@@ -14,6 +14,7 @@
     </div>
     <div class=" col-6">
       <h2 class="display-6"> Most discussed posts</h2>
+      <hr/>
       <ul>
         {% for post in most_commented %}
         <li style="list-style: none">
@@ -25,7 +26,8 @@
               <a class="btn btn-primary" href="{{ url_for('post_specific', post_id=post.id)}}">Take a look</a>
             </div>
           </div>
-          <br />
+
+          <hr />
         </li>
         {%endfor%}
       </ul>

@@ -25,30 +25,44 @@
                     <div style="padding:0.5rem">
                         <div class="row">
                             <div class="col-9">
-                               <a href="{{ url_for('user_page',user_id = post.account.id)}}"> <h5>{{post.account.name}}: </h5> </a>
+                                <a href="{{ url_for('user_page',user_id = post.account.id)}}">
+                                    <h5>{{post.account.name}}: </h5>
+                                </a>
+                                <p>{{ post.content }}</p>
                             </div>
                             <div class="col-3">
-                                {%if post.date_modified != post.date_created %}
-                                <p> (edited) {{post.date_modified}}</p>
-                                {% else %}
-                                {{post.date_modified}}
-                                {% endif %}
+                                <div class="row">
+                                    {%if post.date_modified != post.date_created %}
+                                    <p> (edited) {{post.date_modified}}</p>
+                                    {% else %}
+                                    {{post.date_modified}}
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    {% if current_user.name == post.account.name %}
+                                    <a class="badge badge-primary badge-pill"
+                                        href="{{ url_for('post_specific', post_id=post.id)}}"><i
+                                            data-feather="edit"></i></a>
+                                    <form method="POST" action="{{ url_for('post_delete', post_id=post.id,site='user')}}">        
+                                        <button type="submit" class="badge badge-danger badge-pill"
+                                            style="border:transparent !important">
+                                            <i data-feather="trash-2"></i>
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                        <p>{{ post.content }}</p>
-                        {% if current_user.name == post.account.name %}
-                        <a class="badge badge-primary badge-pill"
-                            href="{{ url_for('post_specific', post_id=post.id)}}"><i data-feather="edit"></i></a>
-                        {% endif %}
                         <a class="badge badge-primary badge-pill"
                             href="{{ url_for('post_specific', post_id=post.id)}}"><i
                                 data-feather="message-square"></i>{{post.comments | length}}</a>
                         <!-- mockup for like counter/like button-->
                         <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i>15</a>
                         <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
-
+                        <br />
+                        <br />
+                        <hr />
                     </div>
-
                 </li>
                 {% endfor %}
             </ul>
