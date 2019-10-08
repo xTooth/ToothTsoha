@@ -9,7 +9,15 @@
             <br />
             {% if current_user.is_authenticated and user.name != current_user.name %}
             <div class="col-3">
-                <a class="btn btn-primary" href="#">Follow</a>
+                    {% if current_user.check_following_status(user) %}
+                    <form method="POST" action="{{ url_for('unfollow', user_id=user.id)}}">
+                        <button type="submit" class="btn btn-secondary">Unfollow</a>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{{ url_for('follow', user_id=user.id)}}">
+                        <button type="submit" class="btn btn-primary">Follow</a>
+                    </form>
+                    {% endif %}
             </div>
             {% endif %}
             <br />
@@ -20,7 +28,7 @@
         <div class="col-9" id="right">
             <br />
             <ul style="list-style: none">
-                {% for post in user.posts %}
+                {% for post in posts %}
                 <li>
                     <div style="padding:0.5rem">
                         <div class="row">

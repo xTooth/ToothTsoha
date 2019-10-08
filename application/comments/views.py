@@ -7,7 +7,7 @@ from application.comments.forms import CommentForm
 from application.posts.forms import PostForm
 from application.posts.models import Post
 
-
+#comment creation
 @app.route("/posts/specific/<post_id>", methods=["POST"])
 @login_required
 def new_comment(post_id):
@@ -25,6 +25,7 @@ def new_comment(post_id):
 
     return redirect(url_for('post_specific', post_id=post_id))
 
+#comment editing
 @app.route("/posts/specific/<post_id>/<comment_id>/edit", methods=["POST"])
 def comment_edit(post_id, comment_id):
     form = CommentForm(request.form)
@@ -36,6 +37,7 @@ def comment_edit(post_id, comment_id):
   
     return redirect(url_for('post_specific', post_id=post_id))
 
+# comment deletion
 @app.route("/posts/specific/<post_id>/<comment_id>/deleteComment", methods=["POST"])
 def comment_delete(post_id, comment_id):     
     c = Comment.query.get(comment_id)
