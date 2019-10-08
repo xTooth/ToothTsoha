@@ -8,7 +8,7 @@
 
 - [x] Käyttäjä voi kirjautua ja kirjautua ulos tililtään
 
-- [ ] Kirjautunut käyttäjä voi seurata muita käyttäjiä, ja lopettaa seuraamisen
+- [x] Kirjautunut käyttäjä voi seurata muita käyttäjiä, ja lopettaa seuraamisen
 
 - [x] Kirjautunut käyttäjä voi tehdä yleisiä postauksia, ja poistaa sekä muokata itse tekemiään kirjoituksia
 
