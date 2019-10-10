@@ -4,9 +4,9 @@
 <details><summary>Click to view SQL</summary>
 <p>
 	
-    ```
+    
     TODO
-    ```
+    
 
 </p>
 </details>
@@ -14,27 +14,26 @@
 - [x] Käyttäjä voi selata lukea posteja ja kommentteja kirjautumatta
 
 <details><summary>Click to view SQL</summary>
-<p>
-Get all posts:
+<p>Get all posts:
 	
-    ```
+    
     SELECT * FROM post ORDER BY time_modified DESC
-    ```
+    
 
 Get most commented posts:
-    ```
+    
     "SELECT id, content"
                     " FROM post AS p"
                     " INNER JOIN( SELECT post_id, COUNT(*) AS postcount FROM comment"
                     " GROUP BY post_id) AS c"
                     " ON p.id = c.post_id"
                     " ORDER BY c.postcount DESC LIMIT 5"
-    ```
+    
 Get posts by one user:
 
-    ```
+    
     TODO
-    ```
+    
 
 </p>
 </details>
@@ -48,9 +47,9 @@ Get posts by one user:
 <details><summary>Click to view SQL</summary>
 <p>
 	
-    ```
+    
     TODO
-    ```
+    
 
 </p>
 </details>
@@ -60,9 +59,9 @@ Get posts by one user:
 <details><summary>Click to view SQL</summary>
 <p>
 	
-    ```
+    
     TODO
-    ```
+    
 
 </p>
 </details>
@@ -78,9 +77,9 @@ Get posts by one user:
 <details><summary>Click to view SQL</summary>
 <p>
 	
-    ```
+    
     TODO
-    ```
+    
 
 </p>
 </details>
