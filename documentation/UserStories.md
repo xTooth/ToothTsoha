@@ -3,7 +3,8 @@
 - [x] Käyttäjä voi selata käyttäjien profiileja kirjautumatta
 <details><summary>Click to view SQL</summary>
 <p>
-	```
+	
+    ```
     TODO
     ```
 
@@ -15,7 +16,8 @@
 <details><summary>Click to view SQL</summary>
 <p>
 Get all posts:
-	```
+	
+    ```
     SELECT * FROM post ORDER BY time_modified DESC
     ```
 
@@ -45,7 +47,8 @@ Get posts by one user:
 
 <details><summary>Click to view SQL</summary>
 <p>
-	```
+	
+    ```
     TODO
     ```
 
@@ -56,7 +59,8 @@ Get posts by one user:
 
 <details><summary>Click to view SQL</summary>
 <p>
-	```
+	
+    ```
     TODO
     ```
 
@@ -73,7 +77,8 @@ Get posts by one user:
 
 <details><summary>Click to view SQL</summary>
 <p>
-	```
+	
+    ```
     TODO
     ```
 
