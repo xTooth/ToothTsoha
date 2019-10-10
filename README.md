@@ -24,6 +24,6 @@ Projekti toteutetaan web sovelluksena, palvelin puoli Pythonia, ja selainpuoli H
 
 [Create table lausekkeet](documentation/Createtables.md)
 
-## Alustava Tietokantakaavio
+## Tietokantakaavio
 
 ![alt text](documentation/images/Tables.PNG)
