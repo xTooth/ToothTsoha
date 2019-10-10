@@ -26,4 +26,4 @@ Projekti toteutetaan web sovelluksena, palvelin puoli Pythonia, ja selainpuoli H
 
 ## Alustava Tietokantakaavio
 
-![alt text](documentation/images/tsoha.PNG)
+![alt text](documentation/images/Tables.PNG)
