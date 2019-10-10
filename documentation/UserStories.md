@@ -18,4 +18,4 @@
 
 - [x] Kirjautunut käyttäjä voi lukea muiden tekemiä kommentteja
 
-- [ ] Kirjautunut käyttäjä voi tykätä postauksista
+- [x] Kirjautunut käyttäjä voi tykätä postauksista ja poistaa tykkäyksensä
