@@ -1,6 +1,7 @@
 from application import db
 from application.models import Base
 from application.posts.models import Post
+from application.posts.models import likes
 
 # association table between Users
 followers = db.Table(
@@ -31,9 +32,16 @@ class User(db.Model):
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'), 
+        backref=db.backref('followers', lazy='dynamic'),
         lazy='dynamic')
 
+    #relation between users and posts
+    liked = db.relationship(
+        "Post",
+        secondary=likes,
+        backref=db.backref("likes",lazy='dynamic'),
+        lazy='dynamic'
+        )
 
     def __init__(self, name, username, password):
         self.name = name
@@ -64,6 +72,19 @@ class User(db.Model):
     def unfollow(self, user):
         if self.check_following_status(user):
             self.followed.remove(user)
+
+    # methods for handling followers and followed users
+
+    def check_like_status(self, post):
+        return self.liked.filter(likes.c.post_id == post.id).count() > 0
+
+    def add_like(self, post):
+        if not self.check_like_status(post):
+            self.liked.append(post)
+
+    def remove_like(self, post):
+        if self.check_like_status(post):
+            self.liked.remove(post)
 
     #method for getting posts by followed users
     def get_followed_posts(self):

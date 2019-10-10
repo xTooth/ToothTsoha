@@ -2,51 +2,86 @@
 {% set active_page = "curated" %}
 {% block body %}
 <div class="container">
-        <ul style="list-style: none">
-                {% for post in posts %}
-                <li>
-                    <div style="padding:0.5rem">
-                        <div class="row">
-                            <div class="col-9">
-                                <a href="{{ url_for('user_page',user_id = post.account.id)}}">
-                                    <h5>{{post.account.name}}: </h5>
-                                </a>
-                                <p>{{ post.content }}</p>
-                            </div>
-                            <div class="col-3">
-                                <div class="row">
-                                    {%if post.date_modified != post.date_created %}
-                                    <p> (edited) {{post.date_modified}}</p>
-                                    {% else %}
-                                    {{post.date_modified}}
-                                    {% endif %}
-                                </div>
-                                <div class="row">
-                                    {% if current_user.name == post.account.name %}
-                                    <a class="badge badge-primary badge-pill"
-                                        href="{{ url_for('post_specific', post_id=post.id)}}"><i data-feather="edit"></i></a>
-                                    <form method="POST" action="{{ url_for('post_delete', post_id=post.id, site='list')}}">                               
-                                        <button type="submit" class="badge badge-danger badge-pill"
-                                            style="border:transparent !important">
-                                            <i data-feather="trash-2"></i>
-                                        </button>
-                                    </form>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <a class="badge badge-primary badge-pill" href="{{ url_for('post_specific', post_id=post.id)}}"><i
-                                data-feather="message-square"></i>{{post.comments | length}}</a>
-                        <!-- mockup for like counter/like button-->
-                        <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i>15</a>
-                        <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
-                        <br />
-                        <br />
-                        <hr />
+    <ul style="list-style: none">
+        {% for post in posts %}
+        <li>
+            <div style="padding:0.5rem">
+                <div class="row">
+                    <div class="col-9">
+                        <a href="{{ url_for('user_page',user_id = post.account.id)}}">
+                            <h5>{{post.account.name}}: </h5>
+                        </a>
+                        <p>{{ post.content }}</p>
                     </div>
-        
-                </li>
-                {% endfor %}
-            </ul>
+                    <div class="col-3">
+                        <div class="row">
+                            {%if post.date_modified != post.date_created %}
+                            <p> (edited) {{post.date_modified}}</p>
+                            {% else %}
+                            {{post.date_modified}}
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            {% if current_user.name == post.account.name %}
+                            <a class="badge badge-primary badge-pill"
+                                href="{{ url_for('post_specific', post_id=post.id)}}"><i data-feather="edit"></i></a>
+                            <form method="POST" action="{{ url_for('post_delete', post_id=post.id, site='list')}}">
+                                <button type="submit" class="badge badge-danger badge-pill"
+                                    style="border:transparent !important">
+                                    <i data-feather="trash-2"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <a class="badge badge-primary badge-pill"
+                            href="{{ url_for('post_specific', post_id=post.id)}}"><i
+                                data-feather="message-square"></i>{{post.comments | length}}</a>
+                    </div>
+                    <!-- mockup for like counter/like button-->
+                    {% if current_user.is_authenticated %}
+                    {% if current_user.check_like_status(post) %}
+                    <div id="add{{post.id}}" style="display: none">
+                        <a class="badge badge-primary badge-pill" id="{{post.id}}/like"
+                            onclick="like(this.id,{{post.id}})"><i data-feather="thumbs-up"></i><i
+                                class="count{{post.id}}">{{post.liked.count()}}</i></a>
+                    </div>
+                    <div id="remove{{post.id}}">
+                        <a class="badge badge-success badge-pill" id="{{post.id}}/dislike"
+                            onclick="dislike(this.id,{{post.id}})"><i data-feather="thumbs-up"></i><i
+                                class="count{{post.id}}">{{post.liked.count()}}</i></a>
+                    </div>
+                    {% else %}
+                    <div id="add{{post.id}}">
+                        <a class="badge badge-primary badge-pill" id="{{post.id}}/like"
+                            onclick="like(this.id,{{post.id}})"><i data-feather="thumbs-up"></i><i
+                                class="count{{post.id}}">{{post.liked.count()}}</i></a>
+                    </div>
+                    <div id="remove{{post.id}}" style="display: none">
+                        <a class="badge badge-success badge-pill" id="{{post.id}}/dislike"
+                            onclick="dislike(this.id,{{post.id}})"><i data-feather="thumbs-up"></i><i
+                                class="count{{post.id}}">{{post.liked.count()}}</i></a>
+                    </div>
+                    {% endif %}
+
+                    {% else %}
+                    <div">
+                        <a class="badge badge-light badge-pill"><i
+                                data-feather="thumbs-up"></i><i>{{post.liked.count()}}</i></a>
+                </div>
+                {% endif %}
+
+            </div>
+            <br />
+            <br />
+            <hr />
+</div>
+
+</li>
+{% endfor %}
+</ul>
 </div>
 {% endblock %}

@@ -38,7 +38,8 @@
             {% endfor %}
           </ul>
           {% endif %}
-          <textarea id="content" name="content" class="form-control" maxlength="144" required>{{post.content}}</textarea>
+          <textarea id="content" name="content" class="form-control" maxlength="144"
+            required>{{post.content}}</textarea>
           <button class="btn  btn-primary text-uppercase center" type="submit"> EDIT </button>
           <button form="delete" class="btn btn-danger text-uppercase" type="submit"> DELETE </button>
           <a class="btn btn-secondary text-uppercase" style="color:white" onclick="postEditToggle()"> CANCEL </a>
@@ -51,103 +52,127 @@
     {% endif %}
     <br />
 
-
+  
     <!-- mockup for like counter/like button-->
-    <a class="badge badge-primary badge-pill" href="#"><i data-feather="thumbs-up"></i></a>
-    <span class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i>15</span>
-    <br />
-
-
-    <!--comment creation field-->
     {% if current_user.is_authenticated %}
-    <hr/>
-    <form method="POST" action="{{ url_for('new_comment', post_id=post.id) }}">
-      {% if commentform.comment.errors %}
-      <ul class="errors" style="color: red; list-style: none;">
-        {% for error in commentform.comment.errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <div style="margin-left: 2rem">
-        {% if commentform.comment.data%}
-        <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?"
-        maxlength="144" required>{{commentform.comment.data}}</textarea>
-        {% else %}
-        <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?"
-        maxlength="144" required></textarea>
-        {% endif %}
-        <button class="btn  btn-primary text-uppercase " type="submit"> Comment </button>
-      </div>
-    </form>
+    {% if current_user.check_like_status(post) %}
+    <div id="add{{post.id}}" style="display: none">
+      <a class="badge badge-primary badge-pill" id="{{post.id}}/like" onclick="like(this.id,{{post.id}})"><i
+          data-feather="thumbs-up"></i><i class="count{{post.id}}">{{post.liked.count()}}</i></a>
+    </div>
+    <div id="remove{{post.id}}">
+      <a class="badge badge-success badge-pill" id="{{post.id}}/dislike" onclick="dislike(this.id,{{post.id}})"><i
+          data-feather="thumbs-up"></i><i class="count{{post.id}}">{{post.liked.count()}}</i></a>
+    </div>
+    {% else %}
+    <div id="add{{post.id}}">
+      <a class="badge badge-primary badge-pill" id="{{post.id}}/like" onclick="like(this.id,{{post.id}})"><i
+          data-feather="thumbs-up"></i><i class="count{{post.id}}">{{post.liked.count()}}</i></a>
+    </div>
+    <div id="remove{{post.id}}" style="display: none">
+      <a class="badge badge-success badge-pill" id="{{post.id}}/dislike" onclick="dislike(this.id,{{post.id}})"><i
+          data-feather="thumbs-up"></i><i class="count{{post.id}}">{{post.liked.count()}}</i></a>
+    </div>
     {% endif %}
 
-
-    <!--comments-->
-    <ul style="list-style: none">
-      {% for comment in post.comments %}
-      <li>
-        <hr />
-        <div class="container">
-
-          <div class="row">
-            <div class="col-9">
-              <a href="{{ url_for('user_page',user_id = comment.account.id)}}">
-                <h6>{{comment.account.name}}:</h6>
-              </a>
-              <p>{{comment.content}}</p>
-            </div>
-            <div class="col-3">
-              {%if comment.date_modified != comment.date_created %}
-              <p> (edited) {{comment.date_modified}}</p>
-              {% else %}
-              <p>{{comment.date_modified}}</p>
-              {% endif %}
-              {% if current_user.name == comment.account.name %}
-              <div id="commentEditFormButton">
-                <!-- vs code claims this contains errors, but it works as intended. JS just doesnt like Jinja2-->
-                <button class="badge badge-primary badge-pill" style="border:transparent !important"
-                  onclick="commentEditToggle({{comment.id}})"><i data-feather="edit"></i></button>
-              </div>
-              {% endif %}
-            </div>
-          </div>         
-        </div>
+    {% else %}
+    <div">
+      <a class="badge badge-light badge-pill"><i data-feather="thumbs-up"></i><i>{{post.liked.count()}}</i></a>
+    </div>
+  {% endif %}
 
 
-        <!-- Comment edit form-->
-        {% if current_user.name == comment.account.name %}
-        <div id="{{comment.id}}" style="display: none">
-          <form method="POST" action="{{ url_for('comment_edit', post_id = comment.post.id, comment_id=comment.id) }}">
-            {% if commentform.comment.errors %}
-            <ul class="errors" style="color: red; list-style: none;">
-              {% for error in commentform.comment.errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-            <div>
-              <textarea id="comment" name="comment" class="form-control" maxlength="144" required>{{comment.content}}</textarea>
-              <button class="btn  btn-primary text-uppercase center" type="submit"> EDIT </button>
-              <button form="delete{{comment.id}}" class="btn btn-danger text-uppercase" type="submit"> DELETE </button>
-              <a class="btn btn-secondary text-uppercase" style="color:white"
-                onclick="commentEditToggle({{comment.id}})"> CANCEL </a>
-            </div>
-          </form>
-          <form id="delete{{comment.id}}" method="POST"
-            action="{{ url_for('comment_delete', post_id = comment.post.id, comment_id=comment.id) }}">
-            <!-- button moved to the form above to avoid styling issues-->
-          </form>
-        </div>
-        {% endif %}
-        <!-- end of comment editing -->
-
-
-      </li>
+  <!--comment creation field-->
+  {% if current_user.is_authenticated %}
+  <hr />
+  <form method="POST" action="{{ url_for('new_comment', post_id=post.id) }}">
+    {% if commentform.comment.errors %}
+    <ul class="errors" style="color: red; list-style: none;">
+      {% for error in commentform.comment.errors %}
+      <li>{{ error }}</li>
       {% endfor %}
     </ul>
+    {% endif %}
+    <div style="margin-left: 2rem">
+      {% if commentform.comment.data%}
+      <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?"
+        maxlength="144" required>{{commentform.comment.data}}</textarea>
+      {% else %}
+      <textarea id="comment" name="comment" class="form-control col-8" placeholder="What do you think about this?"
+        maxlength="144" required></textarea>
+      {% endif %}
+      <button class="btn  btn-primary text-uppercase " type="submit"> Comment </button>
+    </div>
+  </form>
+  {% endif %}
 
-  </div>
+
+  <!--comments-->
+  <ul style="list-style: none">
+    {% for comment in post.comments %}
+    <li>
+      <hr />
+      <div class="container">
+
+        <div class="row">
+          <div class="col-9">
+            <a href="{{ url_for('user_page',user_id = comment.account.id)}}">
+              <h6>{{comment.account.name}}:</h6>
+            </a>
+            <p>{{comment.content}}</p>
+          </div>
+          <div class="col-3">
+            {%if comment.date_modified != comment.date_created %}
+            <p> (edited) {{comment.date_modified}}</p>
+            {% else %}
+            <p>{{comment.date_modified}}</p>
+            {% endif %}
+            {% if current_user.name == comment.account.name %}
+            <div id="commentEditFormButton">
+              <!-- vs code claims this contains errors, but it works as intended. JS just doesnt like Jinja2-->
+              <button class="badge badge-primary badge-pill" style="border:transparent !important"
+                onclick="commentEditToggle({{comment.id}})"><i data-feather="edit"></i></button>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Comment edit form-->
+      {% if current_user.name == comment.account.name %}
+      <div id="{{comment.id}}" style="display: none">
+        <form method="POST" action="{{ url_for('comment_edit', post_id = comment.post.id, comment_id=comment.id) }}">
+          {% if commentform.comment.errors %}
+          <ul class="errors" style="color: red; list-style: none;">
+            {% for error in commentform.comment.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <div>
+            <textarea id="comment" name="comment" class="form-control" maxlength="144"
+              required>{{comment.content}}</textarea>
+            <button class="btn  btn-primary text-uppercase center" type="submit"> EDIT </button>
+            <button form="delete{{comment.id}}" class="btn btn-danger text-uppercase" type="submit"> DELETE </button>
+            <a class="btn btn-secondary text-uppercase" style="color:white" onclick="commentEditToggle({{comment.id}})">
+              CANCEL </a>
+          </div>
+        </form>
+        <form id="delete{{comment.id}}" method="POST"
+          action="{{ url_for('comment_delete', post_id = comment.post.id, comment_id=comment.id) }}">
+          <!-- button moved to the form above to avoid styling issues-->
+        </form>
+      </div>
+      {% endif %}
+      <!-- end of comment editing -->
+
+
+    </li>
+    {% endfor %}
+  </ul>
+
+</div>
 </div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/post.js') }}"></script>

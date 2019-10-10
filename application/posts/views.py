@@ -48,10 +48,12 @@ def post_edit(post_id):
 
 # handles deletion of posts
 @app.route("/posts/specific/<post_id>/<site>/delete", methods=["POST"])
+@login_required
 def post_delete(post_id, site):     
     p = Post.query.get(post_id)
     u = p.account_id
-    
+    p.likes=[]
+    db.session.commit()
     db.session().delete(p)
     db.session().commit()
     if site == "user":
@@ -64,3 +66,30 @@ def post_delete(post_id, site):
 def posts_curated():
     posts = current_user.get_followed_posts()
     return render_template('posts/curatedPosts.html', posts = posts)
+
+
+#post liking logic, no redirects cause these are handled by jquery in the front end.
+
+#handles following of other users.
+@app.route('/curated/<post_id>/like',methods=["POST"])
+@app.route('/user/<post_id>/like',methods=["POST"])
+@app.route('/posts/specific/<post_id>/like',methods=["POST"])
+@app.route('/<post_id>/like',methods=["POST"])
+@login_required
+def like(post_id):
+    post = Post.query.get(post_id)
+    current_user.add_like(post)
+    db.session.commit()
+    return ('', 204)
+
+#handles unfollowing of other users.
+@app.route('/curated/<post_id>/dislike',methods=["POST"])
+@app.route('/user/<post_id>/dislike',methods=["POST"])
+@app.route('/posts/specific/<post_id>/dislike',methods=["POST"])
+@app.route('/<post_id>/dislike', methods=["POST"])
+@login_required
+def unlike(post_id):
+    post = Post.query.get(post_id)
+    current_user.remove_like(post)
+    db.session.commit()
+    return ('', 204)

@@ -31,6 +31,24 @@
         </li>
         {%endfor%}
       </ul>
+      <h2 class="display-6"> Most liked posts</h2>
+      <hr/>
+      <ul>
+        {% for post in most_liked %}
+        <li style="list-style: none">
+          <div class="row">
+            <div class="col-9">
+              <p>{{post.content}}</p>
+            </div>
+            <div class="col-3">
+              <a class="btn btn-primary" href="{{ url_for('post_specific', post_id=post.id)}}">Take a look</a>
+            </div>
+          </div>
+
+          <hr />
+        </li>
+        {%endfor%}
+      </ul>
     </div>
   </div>
 </div>
