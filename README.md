@@ -22,7 +22,7 @@ Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoi
 
 Projekti toteutetaan web sovelluksena, palvelin puoli Pythonia, ja selainpuoli HTML + CSS/Bootstrap
 
-
+[Create table lausekkeet](documentation/Createtables.md)
 
 ## Alustava Tietokantakaavio
 
