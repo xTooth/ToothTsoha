@@ -55,4 +55,4 @@ Täältä pääsee tutkimaan omaa profiilia.
 
 ##### Followed
 
-KESKEN - tänne tulee kaikki käyttäjän seuraamien henkilöiden viimeisimmät postaukset.
+Täältä näkee kaikki käyttäjän seuraamien henkilöiden postaukset.
