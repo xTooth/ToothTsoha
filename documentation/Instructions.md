@@ -10,7 +10,7 @@ Linux/mac:
 python -m venv venv/
 source venv/bin/activate
 pip install -r requirements.txt
-python app.py
+python run.py
 ```
 
 Windows:
@@ -19,7 +19,7 @@ Windows:
 python3 -m venv venv/
 venv/Scripts/activate
 pip install -r requirements.txt
-python app.py
+python run.py
 ```
 
 Sovelluksen etusivu on tämän jälkeen tarjolla osoitteessa: localhost:5000

@@ -35,14 +35,16 @@ def post_specific(post_id):
 
 # handles editing of posts
 @app.route("/posts/<post_id>/", methods=["POST"])
+@login_required
 def post_edit(post_id):
     form = PostForm(request.form)
 
     if not form.validate():
         return render_template("/posts/post.html", form = form, post = Post.query.get(post_id), commentform = CommentForm())
     p = Post.query.get(post_id)
-    p.content = form.content.data
-    db.session().commit()
+    if p.account_id == current_user.id:
+        p.content = form.content.data
+        db.session().commit()
   
     return redirect(url_for('post_specific', post_id=post_id))
 
@@ -52,10 +54,11 @@ def post_edit(post_id):
 def post_delete(post_id, site):     
     p = Post.query.get(post_id)
     u = p.account_id
-    p.likes=[]
-    db.session.commit()
-    db.session().delete(p)
-    db.session().commit()
+    if p.account_id == current_user.id:
+        p.likes=[]
+        db.session.commit()
+        db.session().delete(p)
+        db.session().commit()
     if site == "user":
         return redirect(url_for("user_page",user_id=u))  
     return redirect(url_for("posts_index"))
