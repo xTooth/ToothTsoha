@@ -1,8 +1,11 @@
 from application import db
-from application.models import Base
 
-class Comment(Base):
-    
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
+                              onupdate=db.func.current_timestamp())
+
     content = db.Column(db.String(144), nullable=False)
     
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),

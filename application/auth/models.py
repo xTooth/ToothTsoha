@@ -1,12 +1,10 @@
 from application import db
-from application.models import Base
 from application.posts.models import Post
 from application.posts.models import likes
 
 # association table between Users
 followers = db.Table(
    "followers",
-   Base.metadata,
    db.Column("follower_id", db.Integer, db.ForeignKey("account.id")),
    db.Column("followed_id", db.Integer, db.ForeignKey("account.id"))
 )

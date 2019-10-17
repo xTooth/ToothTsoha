@@ -18,7 +18,6 @@ db = SQLAlchemy(app)
 
 # application
 from application import views
-from application import models
 
 from application.posts import models
 from application.posts import views

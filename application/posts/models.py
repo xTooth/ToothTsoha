@@ -1,11 +1,10 @@
 from application import db
 from sqlalchemy.sql import text
-from application.models import Base
+
 
 #associationtable between users and posts or "likes"
 likes = db.Table(
    "likes",
-   Base.metadata,
    db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
    db.Column("liker_id", db.Integer, db.ForeignKey("account.id"))
 )
