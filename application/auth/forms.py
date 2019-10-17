@@ -11,7 +11,7 @@ class NewUserForm(FlaskForm):
     username = StringField("Username", [validators.DataRequired(message=('Don\'t be shy!')), validators.length(max=144, message="username: " + x)])
     name = StringField("Name", [validators.DataRequired(message=( 'We do need a name...')), validators.length(max=144, message="name: " + x)])
 
-    password = PasswordField('password',validators=[DataRequired(),EqualTo('password2',message='Passwords must match.'), validators.length(max=144, message="password: " + x)])
+    password = PasswordField('password',validators=[DataRequired(message=('cant be empty')),EqualTo('password2',message='Passwords must match.'), validators.length(max=144, message="password: " + x)])
     password2 = PasswordField('Confirm password',validators=[DataRequired(), validators.length(max=144, message="password: " + x)])
     
     def validate_username(self, username):      
