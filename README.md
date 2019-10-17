@@ -12,7 +12,7 @@ Sovellukseen esimerkki käyttäijä:
 
 ## Foorumi
 
-Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoiminnallisuudet:
+Projekti on "keskustelupalsta/foorumi" jossa on seuraavat päätoiminnallisuudet:
 
 [Käyttötapaukset](documentation/UserStories.md)
 
@@ -20,7 +20,7 @@ Eli ajatus on rakentaa "keskustelupalsta/foorumi" jossa olisi seuraavat päätoi
 
 ## Toteutus
 
-Projekti toteutetaan web sovelluksena, palvelin puoli Pythonia, ja selainpuoli HTML + CSS/Bootstrap
+Projekti on toteutettu web sovelluksena, palvelin puoli Pythonia (Flask + Jinja2), ja selainpuoli HTML + CSS/Bootstrap
 
 [Create table lausekkeet](documentation/Createtables.md)
 
